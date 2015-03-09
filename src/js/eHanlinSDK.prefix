@@ -1,0 +1,4 @@
+(function( window, module ){
+
+var document = window.document;
+

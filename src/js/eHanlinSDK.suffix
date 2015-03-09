@@ -1,0 +1,7 @@
+
+if ( typeof module != "undefined" ) module.exports = EH;
+
+window.EH = EH;
+
+})( window, window.module )
+

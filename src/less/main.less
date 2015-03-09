@@ -1,0 +1,32 @@
+
+.eh-score {
+  display:inline-block;
+  .eh-circle-button {
+    width:30px;
+    display:inline-block;
+    border-radius:50%;
+    border:1px solid #CBCBCB;
+    padding:10px;
+    cursor:pointer;
+    opacity:.8;
+    &:hover {
+      opacity:1;
+    }
+    img {
+      width:100%;
+    }
+    &.active {
+      img {
+        display:none;
+        &.active {
+          display:inline-block;
+        }
+      }
+    }
+    img.active {
+      display:none;
+    }
+
+  }
+}
+

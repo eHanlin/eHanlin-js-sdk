@@ -1,0 +1,9 @@
+{
+  "name": "eHanlinSDK",
+  "author":"sparrow.jang",
+  "version":"0.0.1",
+  "dependencies": {},
+  "devDependencies": {
+    "less.js": "~2.4.0"
+  }
+}
