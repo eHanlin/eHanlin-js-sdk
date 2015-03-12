@@ -22,8 +22,13 @@ class CommentView
 
     (domUtils.createElementByHTML """
       <div class="eh-comment-view">
-        <select id="" name="" class="eh-basic-select"></select>
-        <div class="eh-table-layout eh-full">
+        <div class="eh-line-block">
+          <select id="" name="" class="eh-basic-select">
+            <option>test</option>
+            <option>test</option>
+          </select>
+        </div>
+        <div class="eh-table-layout eh-full eh-line-block">
           <div class="eh-table-cell">
             <textarea id="" name="" ></textarea>
           </div>
