@@ -23,7 +23,7 @@
 }
 
 .eh-basic-select {
-  background-image:url("@{imagePath}select-arrow.png"), linear-gradient(#e7e7e7, #e7e7e7 40%, #e7e7e7);
+  background-image:linear-gradient(#e7e7e7, #e7e7e7 40%, #e7e7e7);
   background-image:url("@{imagePath}select-arrow.png"), -webkit-linear-gradient(#e7e7e7, #e7e7e7 40%, #e7e7e7);
   //, .eh-linear-gradient(e("#e7e7e7, #e7e7e7 40%, #e7e7e7"));
   -webkit-appearance: button;
@@ -39,10 +39,13 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  padding: 0px 42px 5px 15px;
+  padding: 5px 42px 5px 15px;
   padding: 6px 8px \9;
   .eh-box-shadow( e("1px 2px 2px 0px #eee, inset 0px 0px 0px 1px #fff") );
   margin: 0 5px 0px 0;
+  option {
+    background:#e7e7e7;
+  }
 }
 
 .eh-basic-textarea {
