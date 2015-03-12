@@ -59,7 +59,14 @@ gulp.task('build', ["less", "coffee"], function(){
 
   gulp.src('./src/**/*.less')
   .pipe(plugins.less({compress:true}))
+  .pipe(plugins.base64({
+    baseDir: 'src',
+    debug: true
+  }))
   .pipe(gulp.dest( pack.dist ));
+
+  gulp.src('./src/images/*')
+      .pipe(gulp.dest( pack.dist + "/images" ));
 });
 
 gulp.task('watch',function(){
