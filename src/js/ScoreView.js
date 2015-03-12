@@ -90,7 +90,8 @@ util.clone( ScoreView.prototype, {
    * @param {Event} event
    */
   onLike:function( event ){
-    this.setStatus( this.getStatus() == this.LIKE ? '' : this.LIKE );
+    //this.setStatus( this.getStatus() == this.LIKE ? '' : this.LIKE );
+    this.setStatus( this.LIKE );
     this.renderByData();
     console.log( arguments );
   },
@@ -99,7 +100,8 @@ util.clone( ScoreView.prototype, {
    * @param {Event} event
    */
   onUnLike:function( event ){
-    this.setStatus( this.getStatus() == this.UNLIKE ? '' : this.UNLIKE );
+    //this.setStatus( this.getStatus() == this.UNLIKE ? '' : this.UNLIKE );
+    this.setStatus( this.UNLIKE );
     this.renderByData();
     console.log( arguments );
   },

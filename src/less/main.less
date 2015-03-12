@@ -1,32 +1,50 @@
 
+@import "config.less";
+@import "css3.less";
+@import "component.less";
+@import "layout.less";
+
 .eh-score {
   display:inline-block;
-  .eh-circle-button {
-    width:30px;
-    display:inline-block;
-    border-radius:50%;
-    border:1px solid #CBCBCB;
-    padding:10px;
-    cursor:pointer;
-    opacity:.8;
-    &:hover {
-      opacity:1;
-    }
-    img {
-      width:100%;
-    }
-    &.active {
+  .eh-score-view {
+    .eh-circle-button {
+      width:30px;
+      display:inline-block;
+      border-radius:50%;
+      border:1px solid #CBCBCB;
+      padding:10px;
+      cursor:pointer;
+      opacity:.8;
+      &:hover {
+        opacity:1;
+      }
       img {
-        display:none;
-        &.active {
-          display:inline-block;
+        width:100%;
+      }
+      &.active {
+        img {
+          display:none;
+          &.active {
+            display:inline-block;
+          }
         }
       }
-    }
-    img.active {
-      display:none;
-    }
+      img.active {
+        display:none;
+      }
 
+    }
   }
 }
 
+.eh-comment-view {
+
+  textarea {
+    .eh-basic-textarea();
+  }
+  .action-cell {
+    vertical-align:top;
+    text-align:right;
+    width:125px;
+  }
+}

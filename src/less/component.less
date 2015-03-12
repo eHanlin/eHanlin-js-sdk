@@ -1,0 +1,58 @@
+
+@import "config.less";
+@import "css3.less";
+@import "layout.less";
+
+.eh-btn {
+  box-shadow:2px 2px 4px -1px #ccc;
+  display:inline-block;
+  padding:10px 40px;
+  border:1px solid #fff;
+  .eh-border-radius( 4px );
+  font-size:14px;
+  font-family:"微軟正黑體", Arial, sans-serif;
+  background:#3498db;
+  color:#fff;
+  cursor:pointer;
+
+  &:hover {
+    text-decoration:none;
+    background:#3275ab;
+    text-shadow:#fff 0px 0px 8px;
+  }
+}
+
+.eh-basic-select {
+  background-image:url("@{imagePath}select-arrow.png"), linear-gradient(#e7e7e7, #e7e7e7 40%, #e7e7e7);
+  background-image:url("@{imagePath}select-arrow.png"), -webkit-linear-gradient(#e7e7e7, #e7e7e7 40%, #e7e7e7);
+  //, .eh-linear-gradient(e("#e7e7e7, #e7e7e7 40%, #e7e7e7"));
+  -webkit-appearance: button;
+  .eh-border-radius(4px);
+  .eh-box-shadow( e("0px 1px 3px rgba(0, 0, 0, 0.1)") );
+  -webkit-padding-end: 20px;
+  -webkit-padding-start: 2px;
+  .eh-user-select( none );
+  background-position: center right;
+  background-repeat: no-repeat;
+  border: 1px solid #d7d7d7;
+  color: #555;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0px 42px 5px 15px;
+  padding: 6px 8px \9;
+  .eh-box-shadow( e("1px 2px 2px 0px #eee, inset 0px 0px 0px 1px #fff") );
+  margin: 0 5px 0px 0;
+}
+
+.eh-basic-textarea {
+  .eh-full();
+  border:1px solid #cdcdcd;
+  height:80px;
+  resize:none;
+  box-sizing:border-box;
+  background:#ececec;
+  .eh-border-radius( 6px );
+}
+
+

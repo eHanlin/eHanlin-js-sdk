@@ -40,6 +40,21 @@ var domUtils = {
   createElement:function( tag ){
 
     return document.createElement( tag );
+  },
+
+  /**
+   * @param {String} html
+   * @type HTMLElement
+   */
+  createElementByHTML:function( html ){
+
+    var el = this.createElement('div'), children;
+    el.innerHTML = html,
+    children = el.children;
+    util.each(function(i, child){
+      el.removeChild( child );
+    });
+    return children;
   }
 };
 
