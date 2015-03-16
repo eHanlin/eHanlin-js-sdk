@@ -4,7 +4,7 @@
  * @extend View
 ###
 
-class CommentView
+class CommentView extends View
 
   ###
   # @Override
@@ -13,7 +13,6 @@ class CommentView
   onCreate:( el )->
 
     View::onCreate.call @, el
-    el.appendChild @buildElement()
 
   ###
   # @return HTMLElement

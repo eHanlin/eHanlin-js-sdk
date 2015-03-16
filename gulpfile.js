@@ -52,6 +52,7 @@ gulp.task('build', ["less", "coffee"], function(){
       'src/js/View.js',
       tmpFolder + '/coffee/WindowView.js',
       tmpFolder + '/coffee/CommentView.js',
+      tmpFolder + '/coffee/CommentWindowView.js',
       tmpFolder + '/coffee/ScoreView.js',
       'src/js/XEHML.js',
       'src/js/eHanlinSDK.suffix'

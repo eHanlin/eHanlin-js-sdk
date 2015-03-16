@@ -14,7 +14,15 @@ class WindowView extends View
 
     View::onCreate.call @, el
 
-    el.appendChild @buildElement()
+    @windowContentEl = @el.querySelector '.eh-window-content'
+
+  ###
+  * @param {HTMLElement} contentEl
+  ###
+  setContent:( contentEl )->
+    children = @windowContentEl.children
+    child.remove() for child in children
+    @windowContentEl.appendChild contentEl
 
   ###
   *

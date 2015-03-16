@@ -15,9 +15,13 @@ class ScoreView extends View
 
     View::onCreate.call @, el
 
-    el.appendChild @buildElement()
     @onLoadData()
     @registerEvent()
+    @commentWindowView = new CommentWindowView()
+    @commentWindowView.onCreate()
+    @el.querySelector('.eh-score-view').appendChild @commentWindowView.el
+    domUtils.css @commentWindowView.el, {position:'absolute', width:'500px', display:'none'}
+    document.addEventListener 'click', => @closeComment()
     
   ###
    *
@@ -77,6 +81,7 @@ class ScoreView extends View
     #@setStatus( @getStatus() == @LIKE ? '' : @LIKE )
     @setStatus @LIKE
     @renderByData()
+    @showComment event.originalElement
     console.log( arguments )
 
   ###
@@ -86,7 +91,23 @@ class ScoreView extends View
     #@setStatus( @getStatus() == @UNLIKE ? '' : @UNLIKE )
     @setStatus( @UNLIKE )
     @renderByData()
+    @showComment event.originalElement
     console.log( arguments )
+
+  ###
+   *
+  ###
+  showComment:( el )->
+    height = el.clientHeight
+    offset = domUtils.offset el
+    domUtils.css @commentWindowView.el, {display:'block', left:"#{offset.left}px" , top:"#{offset.top + height}px"}
+
+  ###
+  *
+  ###
+  closeComment:-> domUtils.css @commentWindowView.el, {display:'none'}
+
+  stopPropagation:( event )->  event.stopPropagation()
 
   ###
    * @return HTMLElement
@@ -94,7 +115,7 @@ class ScoreView extends View
   buildElement:()->
 
     (domUtils.createElementByHTML """
-      <div class="eh-score-view">
+      <div class="eh-score-view" eh-event-click="stopPropagation()">
         <div class="eh-like eh-circle-button" eh-event-click="onLike()" eh-event-mousedown="preventDefault()">
           <img src="#{pathBuilder.img( "satisfaction_like.png" )}" />
           <img class="active" src="#{pathBuilder.img( "satisfaction_like_active.png" )}" />
