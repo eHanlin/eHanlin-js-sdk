@@ -10,7 +10,18 @@ util.clone( View.prototype , {
    */
   onCreate:function( el ){
 
-    this.el = el;
+    var dom = this.buildElement();
+
+    if ( el ) {
+
+      this.el = el;
+      this.el.appendChild( dom );
+
+    } else {
+
+      this.el = dom;
+    }
+
     this.eventBinder = new EventBinder();
   },
 
@@ -19,6 +30,14 @@ util.clone( View.prototype , {
    */
   destroy:function(){
 
+  },
+
+  /**
+   * @type HTMLElement
+   */
+  buildElement:function(){
+
+    return domUtils.createElementByHTML('<div></div>')[0];
   },
 
   /**
