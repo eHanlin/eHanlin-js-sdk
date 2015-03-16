@@ -30,7 +30,7 @@ domUtils =
     
 
   ###
-   * @param {String tag}
+   * @param {String} tag
    * @type HTMLElement
   ###
   createElement:( tag )-> document.createElement( tag )
@@ -50,7 +50,23 @@ domUtils =
     )
     children
 
+  ###
+  # @param {String} el
+  # @param {Object} attrs
+  ###
+  css:( el, attrs )->
 
+    for key, attr of attrs
+      el.style[key] = attr
 
+  ###
+  #
+  ###
+  offset:( el )->
+    box = el.getBoundingClientRect()
+    ownDoc = el.ownerDocument
+    docElem = ownDoc.documentElement
+    top:box.top + ( docElem.scrollTop ) - ( docElem.clientTop || 0 )
+    left:box.left + ( docElem.scrollLeft ) - ( docElem.clientLeft || 0 )
 
 
