@@ -23,6 +23,7 @@ util.clone( EventBinder.prototype, {
         dom.addEventListener( eventName, function( event ){
           var eventParams = util.clone( [], params )
           eventParams.unshift( event );
+          event.originalElement = dom;
           view[funcName].apply( view, eventParams );
         });
         //console.log( dom.getAttribute( key ) );
