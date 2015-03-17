@@ -45,6 +45,7 @@ gulp.task('build', ["less", "coffee"], function(){
       'src/js/eHanlinSDK.prefix',
       tmpFolder + '/coffee/config.js',
       tmpFolder + '/coffee/util.js',
+      tmpFolder + '/coffee/queryString.js',
       tmpFolder + '/coffee/domUtils.js',
       tmpFolder + '/coffee/Observer.js',
       'src/js/pathBuilder.js',

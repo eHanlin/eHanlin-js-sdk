@@ -61,8 +61,6 @@ class CommentView extends View
       <div class="eh-comment-view">
         <div class="eh-line-block">
           <select id="" name="" class="eh-basic-select">
-            <option>test</option>
-            <option>test</option>
           </select>
         </div>
         <div class="eh-table-layout eh-full eh-line-block">
