@@ -17,6 +17,12 @@ util =
   isArray:( obj )-> return Object.prototype.toString.call(obj) == "[object Array]"
 
   ###
+   * @param {function} func
+   * @type boolean
+  ###
+  isFunction:( fun )-> return typeof obj is "function"
+
+  ###
    * @param {Object} obj
    * @type boolean
   ###
