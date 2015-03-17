@@ -1,4 +1,14 @@
 
+buildPipeByContentType = ( xhr, fn )->
+
+  ( evt )->
+    contentType = @getResponseHeader 'content-type'
+    if contentType.toLowerCase() is 'application/json'
+      data = JSON.parse @responseText
+      fn.apply xhr, [evt, data]
+    else
+      fn.apply xhr, [evt]
+
 ###
  * @function
  * @param {String} url
@@ -20,7 +30,7 @@ ajax = ( url, settings = {} )->
       data = if util.isObject data then queryString.stringify data else data
       isURLRequest = true
 
-  if util.isFunction success then xhr.addEventListener 'load', success.bind xhr
+  if util.isFunction success then xhr.addEventListener 'load', buildPipeByContentType( xhr, success )
   if util.isFunction error then xhr.addEventListener 'error', error.bind xhr
   if util.isFunction progress then xhr.addEventListener 'progress', progress.bind xhr
 
