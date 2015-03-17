@@ -20,7 +20,7 @@ util =
    * @param {function} func
    * @type boolean
   ###
-  isFunction:( fun )-> return typeof obj is "function"
+  isFunction:( func )-> return typeof func is "function"
 
   ###
    * @param {Object} obj
