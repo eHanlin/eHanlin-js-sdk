@@ -103,6 +103,34 @@ util =
    * @param {function} superConstructor
   ###
   inherits:( constructor, superConstructor )-> @clone( true, constructor.prototype, superConstructor.prototype )
-  
+
+  ###
+   * @param {HTMLElement} el
+   * @type boolean
+  ###
+  hasData:( el )-> if el[DATA_KEY] then true else false
+
+  ###
+   * @param {HTMLElement} el
+   * @param {String} key
+  ###
+  removeData:( el, key )->
+
+    if @hasData
+
+      if key then delete el[DATA_KEY][key] else delete el[DATA_KEY]
+      
+
+  ###
+   * @param {HTMLElement} el
+   * @param {String} key
+   * @param {*} value
+  ###
+  data:( el, key, value )->
+    
+    data = if !@hasData el then el[DATA_KEY] = {} else el[DATA_KEY]
+
+    if arguments.length is 3 then data[key] = value else data[key]
+
 
 
