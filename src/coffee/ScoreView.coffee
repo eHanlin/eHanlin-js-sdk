@@ -18,10 +18,6 @@ class ScoreView extends View
     @onLoadData()
     @registerEvent()
     @commentWindowView = util.data( el.querySelector( '[data-eh-action="commentWindow"]' ), 'view' )
-    console.log @commentWindowView
-    #@commentWindowView = new CommentWindowView()
-    #@commentWindowView.onCreate()
-    #@el.querySelector('.eh-score-view').appendChild @commentWindowView.el
     domUtils.css @commentWindowView.el, {position:'absolute', width:'500px', display:'none'}
     document.addEventListener 'click', => @closeComment()
     
