@@ -50,7 +50,7 @@ class CommentView extends View
   ###
   #
   ###
-  onSubmit:-> @fireEvent 'submit', {test:124}
+  onSubmit:-> @fireEvent 'submit', {text:@getText(), select:@getSelect()}
 
   ###
   # @return HTMLElement
