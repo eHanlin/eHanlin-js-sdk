@@ -14,13 +14,21 @@ class CommentWindowView extends View
 
     View::onCreate.call @, el
 
-    windowView = new WindowView()
-    commentView = new CommentView()
-    windowView.onCreate @el
-    commentView.onCreate()
-    windowView.setContent commentView.el
+  ###
+  #
+  ###
+  onSubmit:->
+    console.log arguments
 
-#commentWindowView = new CommentWindowView
-#commentWindowView.onCreate domUtils.createElement('div')
-#document.body.appendChild commentWindowView.el
+  ###
+   * @Override
+  ###
+  buildElement:->
+
+    (domUtils.createElementByHTML """
+      <div data-eh-action="window">
+        <div data-eh-action="comment" eh-event-submit="onSubmit()"></div>
+      </div>
+    """)[0]
+
 

@@ -13,6 +13,44 @@ class CommentView extends View
   onCreate:( el )->
 
     View::onCreate.call @, el
+    @textarea = @el.querySelector 'textarea'
+    @select = @el.querySelector 'select'
+
+  ###
+   * @type String
+  ###
+  getText:-> @textarea.value
+
+  ###
+   * @type String
+  ###
+  getSelect:-> @select.value
+
+  ###
+   * @param {String} val
+  ###
+  setText:( val )-> @textarea.value = val
+
+  ###
+   * @param {*} val
+  ###
+  setSelect:( val )-> @select.value = val
+
+  ###
+   * @param {Object[]} values
+  ###
+  renderSelect:( values )->
+    html = ""
+    for val in values
+      html += """
+        <option value="#{val.val}">#{val.text}</option>
+      """
+    @select.innerHTML = html
+
+  ###
+  #
+  ###
+  onSubmit:-> @fireEvent 'submit', {test:124}
 
   ###
   # @return HTMLElement
@@ -29,16 +67,12 @@ class CommentView extends View
         </div>
         <div class="eh-table-layout eh-full eh-line-block">
           <div class="eh-table-cell">
-            <textarea id="" name="" ></textarea>
+            <textarea name="" ></textarea>
           </div>
           <div class="eh-table-cell action-cell">
-            <a class="eh-btn">送出</a>
+            <a class="eh-btn" eh-event-click="onSubmit()">送出</a>
           </div>
         </div>
       </div>
     """)[0]
-
-#commentView = new CommentView()
-#commentView.onCreate domUtils.createElement('div')
-#document.body.appendChild commentView.el
 

@@ -2,13 +2,16 @@
  * @namespace
  */
 var viewBuilder = {
-  score:ScoreView
+  score:ScoreView,
+  comment:CommentView,
+  window:WindowView,
+  commentWindow:CommentWindowView
 };
 
 /**
  * @namespace
  */
-EH.XEHML = {
+var XEHML = EH.XEHML = {
 
   /***
    * <div data-eh-action="score" ></div>
@@ -31,13 +34,27 @@ EH.XEHML = {
 
     }
 
-    for ( var index = 0; index < buildElems.length; index++ ) {
+    util.each( buildElems, function( index, buildEl ) {
 
-      var buildEl = buildElems[index];
       //elementBuilder[buildEl.dataset.ehAction]( buildEl );
-      var view = new viewBuilder[buildEl.dataset.ehAction];
-      view.onCreate( buildEl );
-    }
+      if ( ! util.data( buildEl, 'view' ) ) {
+        var children = util.copyArray( buildEl.children );
+        var view = new viewBuilder[buildEl.dataset.ehAction];
+
+        util.each( children, function(i, child){ child.remove(); });
+        view.onCreate( buildEl );
+        util.data( buildEl, 'view', view );
+
+        var transcludeEl = buildEl.querySelector('[data-eh-transclude]');
+
+        if ( transcludeEl ) {
+          util.each( children, function(i , child){
+            transcludeEl.appendChild( child );
+          });
+        }
+      }
+    });
+
   }
 };
 

@@ -23,6 +23,8 @@ util.clone( View.prototype , {
     }
 
     this.eventBinder = new EventBinder();
+    XEHML.parse( this.el );
+    this.registerEvent();
   },
 
   /**
@@ -47,6 +49,15 @@ util.clone( View.prototype , {
 
     var el = this.el;
     this.eventBinder.register( el, this );
+  },
+
+  /**
+   * @param {String} name
+   * @param {*} detail
+   */
+  fireEvent:function( name, detail ){
+
+    domUtils.fireEvent( this.el, name, detail );
   }
   
 });

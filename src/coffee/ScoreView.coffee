@@ -17,9 +17,11 @@ class ScoreView extends View
 
     @onLoadData()
     @registerEvent()
-    @commentWindowView = new CommentWindowView()
-    @commentWindowView.onCreate()
-    @el.querySelector('.eh-score-view').appendChild @commentWindowView.el
+    @commentWindowView = util.data( el.querySelector( '[data-eh-action="commentWindow"]' ), 'view' )
+    console.log @commentWindowView
+    #@commentWindowView = new CommentWindowView()
+    #@commentWindowView.onCreate()
+    #@el.querySelector('.eh-score-view').appendChild @commentWindowView.el
     domUtils.css @commentWindowView.el, {position:'absolute', width:'500px', display:'none'}
     document.addEventListener 'click', => @closeComment()
     
@@ -82,7 +84,6 @@ class ScoreView extends View
     @setStatus @LIKE
     @renderByData()
     @showComment event.originalElement
-    console.log( arguments )
 
   ###
    * @param {Event} event
@@ -92,7 +93,6 @@ class ScoreView extends View
     @setStatus( @UNLIKE )
     @renderByData()
     @showComment event.originalElement
-    console.log( arguments )
 
   ###
    *
@@ -107,6 +107,9 @@ class ScoreView extends View
   ###
   closeComment:-> domUtils.css @commentWindowView.el, {display:'none'}
 
+  ###
+  #
+  ###
   stopPropagation:( event )->  event.stopPropagation()
 
   ###
@@ -124,6 +127,7 @@ class ScoreView extends View
           <img src="#{pathBuilder.img( "satisfaction_unlike.png" )}" />
           <img class="active" src="#{pathBuilder.img( "satisfaction_unlike_active.png" )}" />
 	    </div>
+        <div data-eh-action="commentWindow"></div>
       </div>
     """)[0]
 
