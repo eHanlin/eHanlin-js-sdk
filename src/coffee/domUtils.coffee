@@ -60,7 +60,7 @@ domUtils =
       el.style[key] = attr
 
   ###
-  #
+  # @param {HTMLElement} el
   ###
   offset:( el )->
     box = el.getBoundingClientRect()
@@ -69,4 +69,11 @@ domUtils =
     top:box.top + ( docElem.scrollTop ) - ( docElem.clientTop || 0 )
     left:box.left + ( docElem.scrollLeft ) - ( docElem.clientLeft || 0 )
 
-
+  ###
+  # @param {HTMLElement} el
+  # @param {String} name
+  # @param {*} detail
+  ###
+  fireEvent:( el, name, detail )->
+    event = new CustomEvent name, { 'detail': detail }
+    el.dispatchEvent event
