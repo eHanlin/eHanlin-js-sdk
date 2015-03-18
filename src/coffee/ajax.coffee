@@ -56,3 +56,37 @@ ajax.get = buildAjax {method:'get'}
 ajax.post = buildAjax {method:'post'}
 ajax.put = buildAjax {method:'put'}
 
+EH[JSONP_KEY] = {}
+
+###
+ * @function
+ * @param {String} url
+ * @param {function} cb is optional
+###
+getScript = ajax.getScript = ( url, cb )->
+
+  script = domUtils.createElement 'script'
+  script.onload = ->
+    script.remove()
+    cb and cb()
+  script.type = "text/javascript"
+  script.src = url
+  document.body.appendChild script
+
+###
+ * @param {String} url
+ * @param {Object} params
+ * @param {function} cb
+ * @param {Object} settings
+###
+ajax.jsonp = ( url, params = {}, cb, settings = {callbackName:'callback'} )->
+  key = randId()
+  EH[JSONP_KEY][key] = ->
+    cb and cb.apply null, arguments
+    delete EH[JSONP_KEY][key]
+
+  urlParams = util.clone {}, params
+  urlParams[settings.callbackName] = "EH.#{JSONP_KEY}.#{key}"
+  getScript "#{url}?#{queryString.stringify urlParams}"
+
+
