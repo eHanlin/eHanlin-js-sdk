@@ -10,7 +10,7 @@ queryString =
   stringify:( data )->
     params = []
 
-    for val, name in data
+    for name, val of data
       if util.isArray val
         for childVal in val
           params.push "#{name}=#{childVal}"
