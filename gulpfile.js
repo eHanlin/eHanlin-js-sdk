@@ -47,6 +47,7 @@ gulp.task('build', ["less", "coffee"], function(){
       tmpFolder + '/coffee/util.js',
       tmpFolder + '/coffee/domUtils.js',
       tmpFolder + '/coffee/queryString.js',
+      'src/js/deferred.js',
       tmpFolder + '/coffee/ajax.js',
       tmpFolder + '/coffee/Observer.js',
       'src/js/pathBuilder.js',
