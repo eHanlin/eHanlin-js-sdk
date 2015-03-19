@@ -30,20 +30,31 @@ var XEHML = EH.XEHML = {
     
     var buildElems = el.querySelectorAll( '[data-eh-action]' );
 
-    if ( el.dataset.ehAction ) {
-
+    if ( el.dataset.ehAction && ! util.data( el, 'view' ) ) {
+      this.renderElement_( [el] );
     }
+
+    this.renderElement_( buildElems );
+
+    if ( callback ) callback();
+
+  },
+
+  /**
+   * @private
+   * @param {HTMLElement[]} buildElems
+   */
+  renderElement_:function( buildElems ){
 
     util.each( buildElems, function( index, buildEl ) {
 
-      //elementBuilder[buildEl.dataset.ehAction]( buildEl );
       if ( ! util.data( buildEl, 'view' ) ) {
         var children = util.copyArray( buildEl.children );
         var view = new viewBuilder[buildEl.dataset.ehAction];
 
         util.each( children, function(i, child){ child.remove(); });
-        view.onCreate( buildEl );
         util.data( buildEl, 'view', view );
+        view.onCreate( buildEl );
 
         var transcludeEl = buildEl.querySelector('[data-eh-transclude]');
 
@@ -59,5 +70,5 @@ var XEHML = EH.XEHML = {
 };
 
 
-EH.XEHML.parse();
+//EH.XEHML.parse();
 
