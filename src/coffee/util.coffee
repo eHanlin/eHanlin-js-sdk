@@ -8,19 +8,19 @@ util =
    * @param {Object} obj
    * @type boolean
   ###
-  isObject:( obj )-> return typeof obj is "object"
+  isObject:( obj )-> typeof obj is "object"
 
   ###
    * @param {Object} obj
    * @type boolean
   ###
-  isArray:( obj )-> return Object.prototype.toString.call(obj) == "[object Array]"
+  isArray:( obj )-> Object.prototype.toString.call(obj) == "[object Array]"
 
   ###
    * @param {function} func
    * @type boolean
   ###
-  isFunction:( func )-> return typeof func is "function"
+  isFunction:( func )-> typeof func is "function"
 
   ###
    * @param {Object} obj
@@ -36,8 +36,8 @@ util =
            length is 0 or ( typeof length is "number" && length > 0 && ( length - 1 ) of obj )
 
   ###
-   *
-   *
+   * @param {Object} obj
+   * @param {function} callback
   ###
   each:( obj, callback )->
     value = null
