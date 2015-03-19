@@ -95,7 +95,10 @@ class ScoreView extends View
   ###
   showComment:( el )->
     height = el.clientHeight
-    offset = domUtils.offset el
+    offset =
+      left:el.offsetLeft + 5
+      top:el.offsetTop + 10
+
     domUtils.css @commentWindowView.el, {display:'block', left:"#{offset.left}px" , top:"#{offset.top + height}px"}
 
   ###
