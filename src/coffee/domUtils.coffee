@@ -51,13 +51,27 @@ domUtils =
     children
 
   ###
-  # @param {String} el
+   * @param {HTMLElement} el
+   * @type Object
+  ###
+  getStyles:( el )->
+    if el.ownerDocument.defaultView.opener
+      el.ownerDocument.defaultView.getComputedStyle el, null
+    else
+      window.getComputedStyle el, null
+
+  ###
+  # @param {HTMLElement} el
   # @param {Object} attrs
   ###
-  css:( el, attrs )->
+  css:( el, attrs, extra = false )->
 
-    for key, attr of attrs
-      el.style[key] = attr
+    if typeof attrs is "string"
+      val = @getStyles( el )[ attrs ]
+      if extra is true then parseFloat val else val
+    else
+      for key, attr of attrs
+        el.style[key] = attr
 
   ###
   # @param {HTMLElement} el
@@ -68,6 +82,48 @@ domUtils =
     docElem = ownDoc.documentElement
     top:box.top + ( docElem.scrollTop ) - ( docElem.clientTop || 0 )
     left:box.left + ( docElem.scrollLeft ) - ( docElem.clientLeft || 0 )
+
+  ###
+   * @param {HTMLElement} el
+  ###
+  position:( el )->
+    parentOffset =
+      top:0
+      left:0
+
+    if @css( el, 'position' ) is 'fixed'
+      el.getBoundingClientRect()
+    else
+
+      offsetParent = @offsetParent el.offsetParent
+
+      if offsetParent and !@nodeName( offsetParent, 'html' )
+        parentOffset = domUtils.offset offsetParent
+
+      offset = @offset el
+
+      parentOffset.top += @css offsetParent, 'borderTopWidth', true
+      parentOffset.left += @css offsetParent, 'borderLeftWidth', true
+
+      top:  offset.top  - parentOffset.top -  @css el, 'marginTop', true
+      left: offset.left - parentOffset.left - @css el, 'marginLeft', true
+
+  ###
+   * @param {HTMLElement} el
+  ###
+  offsetParent:( el )->
+    docElem = document.documentElement
+    offsetParent = offsetParent or docElem
+
+    while offsetParent and ( !@nodeName( offsetParent, 'html' ) and @css( offsetParent, "position" ) is "static" )
+      offsetParent = offsetParent.offsetParent
+    offsetParent or docElem
+
+  ###
+   * @param {HTMLElement} el
+   * @param {String} name
+  ###
+  nodeName:( el, name )-> el.nodeName and el.nodeName.toLowerCase() is name.toLowerCase()
 
   ###
   # @param {HTMLElement} el
