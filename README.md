@@ -14,6 +14,14 @@ npm install
 * chrome
 * firefox
 
+## plugin
+
+### score plugin
+
+```html
+<div class="eh-score" data-eh-action="score" ></div>
+```
+
 ## DEMO
 
 ```bash
