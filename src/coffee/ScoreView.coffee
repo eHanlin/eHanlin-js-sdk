@@ -38,7 +38,9 @@ class ScoreView extends View
    * @param {String} status
   ###
   setStatus:( status )->
+    {ehAttrUser, ehAttrType, ehAttrTarget} = @el.dataset
     @data_.status = status
+    api.putComment ehAttrUser, ehAttrType, ehAttrTarget, @data_
 
   ###
    * @type String
