@@ -17,6 +17,12 @@ util =
   isArray:( obj )-> Object.prototype.toString.call(obj) == "[object Array]"
 
   ###
+   * @param {*} str
+   * @type boolean
+  ###
+  isString:( str )-> typeof str is "string"
+
+  ###
    * @param {function} func
    * @type boolean
   ###
