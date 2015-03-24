@@ -17,7 +17,7 @@ class ScoreView extends View
 
     @onLoadData()
     @registerEvent()
-    @commentWindowView = util.data( el.querySelector( '[data-eh-action="commentWindow"]' ), 'view' )
+    @commentWindowView = @findViewByName 'commentWindow'
     domUtils.css @commentWindowView.el, {position:'absolute', width:'500px', display:'none'}
     document.addEventListener 'click', => @closeComment()
     
@@ -27,8 +27,12 @@ class ScoreView extends View
   onLoadData:()->
     @data_ =
       status:''
+    {ehAttrUser, ehAttrType, ehAttrTarget} = @el.dataset
+    deferred = api.getComment ehAttrUser, ehAttrType, ehAttrTarget, 1
 
-    @renderByData()
+    deferred.done ( resp )=>
+      @data_ = if resp and resp.result and resp.result.length then resp.result[0] else {}
+      @renderByData()
 
   ###
    * @param {String} status

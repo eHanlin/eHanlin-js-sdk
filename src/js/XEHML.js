@@ -70,5 +70,5 @@ var XEHML = EH.XEHML = {
 };
 
 
-//EH.XEHML.parse();
+EH.XEHML.parse();
 

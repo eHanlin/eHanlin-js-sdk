@@ -7,3 +7,5 @@ DATA_KEY = "EH_#{randId()}"
 
 JSONP_KEY = "jsonp_#{randId()}"
 
+API_DOMAIN = "http://test.ehanlin.com.tw:8989/"
+
