@@ -58,6 +58,15 @@ util.clone( View.prototype , {
   fireEvent:function( name, detail ){
 
     domUtils.fireEvent( this.el, name, detail );
+  },
+
+  /**
+   * @param {String} viewName
+   * @type View
+   */
+  findViewByName:function( viewName ){
+    var viewEl = this.el.querySelector( '[data-eh-action="' + viewName + '"]' );
+    return util.data( viewEl, 'view' );
   }
   
 });
