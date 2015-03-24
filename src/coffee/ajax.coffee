@@ -39,6 +39,25 @@ buildErrorPipe = ( xhr, fn, deferred )->
     deferred.reject.apply deferred, arguments
 
 ###
+ * @param {Object} header
+ * @param {*} data
+ * @type String
+###
+getDataByHeader = ( header, data )->
+
+  if !util.isString data
+    for headerName, headerVal of header
+      if /content-type/i.test headerName
+        if /application\/json/i.test headerVal
+          return JSON.stringify data
+        else if /application\/x-www-form-urlencoded/i.test headerVal
+          return queryString.stringify data
+
+    data.toString()
+  else
+    data
+
+###
  * @function
  * @param {String} url
  * @param {Object} settings
@@ -69,7 +88,7 @@ ajax = ( url, settings = {} )->
   if headers and util.isObject headers
     xhr.setRequestHeader headerName, headerVal for headerName, headerVal of headers
 
-  if isURLRequest then xhr.send() else xhr.send data
+  if isURLRequest then xhr.send() else xhr.send getDataByHeader( headers, data )
 
   xhr.done = deferred.done.bind deferred
   xhr.fail = deferred.fail.bind deferred
@@ -85,8 +104,10 @@ buildAjax = ( settings )->
   ( url, params = {} )-> ajax url, util.clone( params, settings )
 
 ajax.get = buildAjax {method:'get'}
-ajax.post = buildAjax {method:'post'}
+ajax.post = buildAjax {method:'post', headers:{"Content-type":"application/x-www-form-urlencoded"}}
 ajax.put = buildAjax {method:'put'}
+
+ajax.postJson = buildAjax {method:'post', headers:{"Content-type":"application/json"}}
 
 EH[JSONP_KEY] = {}
 
