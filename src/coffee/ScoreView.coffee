@@ -15,9 +15,10 @@ class ScoreView extends View
 
     View::onCreate.call @, el
 
+    @commentWindowView = @findViewByName 'commentWindow'
+    @commentView = @findViewByName 'comment'
     @onLoadData()
     @registerEvent()
-    @commentWindowView = @findViewByName 'commentWindow'
     domUtils.css @commentWindowView.el, {position:'absolute', width:'500px', display:'none'}
     document.addEventListener 'click', => @closeComment()
     
@@ -27,26 +28,44 @@ class ScoreView extends View
   onLoadData:()->
     @data_ =
       status:''
-    {ehAttrUser, ehAttrType, ehAttrTarget} = @el.dataset
+    dataset = @el.dataset
+    {ehAttrUser, ehAttrType, ehAttrTarget} = dataset
     deferred = api.getComment ehAttrUser, ehAttrType, ehAttrTarget, 1
+
+    selects = JSON.parse( dataset.ehCommentSelect or "[]" )
+
+    if selects.length
+      @commentView.renderSelect selects
+      @enabledSection = true
+    else
+      @commentView.hideSelector()
 
     deferred.done ( resp )=>
       @data_ = if resp and resp.result and resp.result.length then resp.result[0] else {}
+      util.clone @data_, util.getDataByDatasetKey( @el, "ehAttr" )
       @renderByData()
 
   ###
    * @param {String} status
   ###
   setStatus:( status )->
-    {ehAttrUser, ehAttrType, ehAttrTarget} = @el.dataset
     @data_.status = status
+    @putToServer()
+    @fireEvent 'statusChange', @data_
+
+  ###
+   *
+  ###
+  putToServer:->
+    {ehAttrUser, ehAttrType, ehAttrTarget} = @el.dataset
     api.putComment ehAttrUser, ehAttrType, ehAttrTarget, @data_
+    
 
   ###
    * @type String
   ###
   getStatus:()->
-    return this.data_.status
+    @data_.status
 
   LIKE:'like',
   UNLIKE:'unlike',
@@ -97,6 +116,16 @@ class ScoreView extends View
     @showComment event.originalElement
 
   ###
+   * @param {Event} event
+  ###
+  onCommentSubmit:( event )->
+    detail = event.detail
+    @data_["suggestion"] = detail.text
+    if @enabledSection then @data_["section"] = detail.select
+    @closeComment()
+    @putToServer()
+
+  ###
    *
   ###
   showComment:( el )->
@@ -132,7 +161,7 @@ class ScoreView extends View
           <img src="#{pathBuilder.img( "satisfaction_unlike.png" )}" />
           <img class="active" src="#{pathBuilder.img( "satisfaction_unlike_active.png" )}" />
 	    </div>
-        <div data-eh-action="commentWindow"></div>
+        <div data-eh-action="commentWindow" eh-event-commentSubmit="onCommentSubmit()"></div>
       </div>
     """)[0]
 

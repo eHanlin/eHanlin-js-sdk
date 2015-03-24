@@ -6,7 +6,7 @@ var EventBinder = function(){};
 
 util.clone( EventBinder.prototype, {
 
-  EVENTS:['click', 'mousedown', 'mouseup', 'mousemove', 'touchstart', 'touchmove', 'touchend', 'load', 'submit'],
+  EVENTS:['click', 'mousedown', 'mouseup', 'mousemove', 'touchstart', 'touchmove', 'touchend', 'load', 'submit', 'commentSubmit'],
 
   /**
    * @param {HTMLElement} el

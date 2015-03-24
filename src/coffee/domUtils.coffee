@@ -74,6 +74,20 @@ domUtils =
         el.style[key] = attr
 
   ###
+   * @param {HTMLElement} el
+  ###
+  hide:( el )->
+    display = @css el, 'display'
+    util.data el, 'originalDisplay', display
+    @css el, {'display': 'none'}
+
+  ###
+   * @param {HTMLElement} el
+  ###
+  show:( el )->
+    @css el, {'display': (util.data( el, 'originalDisplay' ) or 'block')}
+
+  ###
   # @param {HTMLElement} el
   ###
   offset:( el )->
@@ -131,5 +145,5 @@ domUtils =
   # @param {*} detail
   ###
   fireEvent:( el, name, detail )->
-    event = new CustomEvent name, { 'detail': detail }
+    event = new CustomEvent name, { 'detail': detail, bubbles:true}
     el.dispatchEvent event

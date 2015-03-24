@@ -37,6 +37,16 @@ class CommentView extends View
   setSelect:( val )-> @select.value = val
 
   ###
+   *
+  ###
+  hideSelector:-> domUtils.hide @select
+
+  ###
+   *
+  ###
+  showSelector:-> domUtils.show @select
+
+  ###
    * @param {Object[]} values
   ###
   renderSelect:( values )->
@@ -50,7 +60,7 @@ class CommentView extends View
   ###
   #
   ###
-  onSubmit:-> @fireEvent 'submit', {text:@getText(), select:@getSelect()}
+  onSubmit:-> @fireEvent 'commentSubmit', {text:@getText(), select:@getSelect()}
 
   ###
   # @return HTMLElement
