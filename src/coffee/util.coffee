@@ -156,8 +156,8 @@ util =
       rName = new RegExp "^#{key}", "i"
       if rName.test name
         dataName = name.replace( rName, "" )
-        names = dataName.split(",")
+        names = dataName.split("")
         names[0] = names[0].toLowerCase()
-        data[names.join('')] = val
+        data[names.join('')] = if !isNaN val then Number val else val
     data
 
