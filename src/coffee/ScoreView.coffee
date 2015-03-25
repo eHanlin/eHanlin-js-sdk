@@ -19,7 +19,8 @@ class ScoreView extends View
     @commentView = @findViewByName 'comment'
     @onLoadData()
     @registerEvent()
-    domUtils.css @commentWindowView.el, {position:'absolute', width:'500px', display:'none'}
+    @commentWindowWidth = 500
+    domUtils.css @commentWindowView.el, {position:'absolute', width:"#{@commentWindowWidth}px", display:'none'}
     document.addEventListener 'click', => @closeComment()
     
   ###
@@ -41,7 +42,8 @@ class ScoreView extends View
       @commentView.hideSelector()
 
     deferred.done ( resp )=>
-      @data_ = if resp and resp.result and resp.result.length then resp.result[0] else {}
+      respData = if resp and resp.result and resp.result.length then resp.result[0] else {}
+      if respData.status then @data_ = status:respData.status else @data_ = {}
       util.clone @data_, util.getDataByDatasetKey( @el, "ehAttr" )
       @renderByData()
 
@@ -130,8 +132,10 @@ class ScoreView extends View
   ###
   showComment:( el )->
     height = el.clientHeight
+    elOffset = domUtils.offset @el
+    left = document.body.clientWidth - elOffset.left - @commentWindowWidth
     offset =
-      left:el.offsetLeft + 5
+      left:if left > 0 then el.offsetLeft + 5 else el.offsetLeft + el.clientWidth - @commentWindowWidth - 5
       top:el.offsetTop + 10
 
     domUtils.css @commentWindowView.el, {display:'block', left:"#{offset.left}px" , top:"#{offset.top + height}px"}
@@ -154,12 +158,12 @@ class ScoreView extends View
     (domUtils.createElementByHTML """
       <div class="eh-score-view" eh-event-click="stopPropagation()">
         <div class="eh-like eh-circle-button" eh-event-click="onLike()" eh-event-mousedown="preventDefault()">
-          <img src="#{pathBuilder.img( "satisfaction_like.png" )}" />
-          <img class="active" src="#{pathBuilder.img( "satisfaction_like_active.png" )}" />
+          <div class="like-img eh-img-btn"></div>
+          <div class="active eh-img-btn like-img-active"></div>
 	    </div>
 	    <div class="eh-unlike eh-circle-button" eh-event-click="onUnLike()" eh-event-mousedown="preventDefault()">
-          <img src="#{pathBuilder.img( "satisfaction_unlike.png" )}" />
-          <img class="active" src="#{pathBuilder.img( "satisfaction_unlike_active.png" )}" />
+          <div class="unlike-img eh-img-btn"></div>
+          <div class="active eh-img-btn unlike-img-active"></div>
 	    </div>
         <div data-eh-action="commentWindow" eh-event-commentSubmit="onCommentSubmit()"></div>
       </div>
