@@ -46,6 +46,7 @@ gulp.task('build', ["less", "coffee"], function(){
       tmpFolder + '/coffee/config.js',
       tmpFolder + '/coffee/util.js',
       tmpFolder + '/coffee/domUtils.js',
+      tmpFolder + '/coffee/animationEffect.js',
       tmpFolder + '/coffee/queryString.js',
       'src/js/deferred.js',
       tmpFolder + '/coffee/ajax.js',
@@ -58,6 +59,8 @@ gulp.task('build', ["less", "coffee"], function(){
       tmpFolder + '/coffee/WindowView.js',
       tmpFolder + '/coffee/CommentView.js',
       tmpFolder + '/coffee/CommentWindowView.js',
+      tmpFolder + '/coffee/NotificationWindowView.js',
+      tmpFolder + '/coffee/notification.js',
       tmpFolder + '/coffee/ScoreView.js',
       'src/js/XEHML.js',
       'src/js/eHanlinSDK.suffix'

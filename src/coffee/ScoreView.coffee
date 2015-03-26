@@ -17,6 +17,7 @@ class ScoreView extends View
 
     @commentWindowView = @findViewByName 'commentWindow'
     @commentView = @findViewByName 'comment'
+    @commentView.setTextAreaPlaceHolder '請留下您對此影片的意見或心得想法，以協助我們製作出更符合您學習需求的教學影片'
     @onLoadData()
     @registerEvent()
     @commentWindowWidth = 500
@@ -44,8 +45,13 @@ class ScoreView extends View
     deferred.done ( resp )=>
       respData = if resp and resp.result and resp.result.length then resp.result[0] else {}
       if respData.status then @data_ = status:respData.status else @data_ = {}
-      util.clone @data_, util.getDataByDatasetKey( @el, "ehAttr" )
+      @syncAttrToData()
       @renderByData()
+
+  ###
+   *
+  ###
+  syncAttrToData:-> util.clone @data_, util.getDataByDatasetKey( @el, "ehAttr" )
 
   ###
    * @param {String} status
@@ -60,6 +66,7 @@ class ScoreView extends View
   ###
   putToServer:->
     {ehAttrUser, ehAttrType, ehAttrTarget} = @el.dataset
+    @syncAttrToData()
     api.putComment ehAttrUser, ehAttrType, ehAttrTarget, @data_
     
 
@@ -123,9 +130,15 @@ class ScoreView extends View
   onCommentSubmit:( event )->
     detail = event.detail
     @data_["suggestion"] = detail.text
-    if @enabledSection then @data_["section"] = detail.select
+    if @enabledSection
+      @data_["section"] = detail.select
+      if @data_["section"] is ''
+        notification.message "請選擇段落","eHanlin"
+        return
+
     @closeComment()
     @putToServer()
+    notification.message "我們已經收到你的意見，感謝您！祝您學習愉快！","eHanlin"
 
   ###
    *

@@ -17,6 +17,11 @@ class CommentView extends View
     @select = @el.querySelector 'select'
 
   ###
+   * @param {String} placeholder
+  ###
+  setTextAreaPlaceHolder:( placeholder )-> @textarea.setAttribute 'placeholder', placeholder
+
+  ###
    * @type String
   ###
   getText:-> @textarea.value
@@ -58,6 +63,11 @@ class CommentView extends View
     @select.innerHTML = html
 
   ###
+   *
+  ###
+  preventDefault:( evt )-> evt.preventDefault()
+
+  ###
   #
   ###
   onSubmit:-> @fireEvent 'commentSubmit', {text:@getText(), select:@getSelect()}
@@ -78,7 +88,7 @@ class CommentView extends View
             <textarea name="" ></textarea>
           </div>
           <div class="eh-table-cell action-cell">
-            <a class="eh-btn" eh-event-click="onSubmit()">送出</a>
+            <a class="eh-btn" eh-event-click="onSubmit()" eh-event-mousedown="preventDefault()">送出</a>
           </div>
         </div>
       </div>

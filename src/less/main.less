@@ -1,6 +1,7 @@
 
 @import "config.less";
 @import "css3.less";
+@import "animate.less";
 @import "component.less";
 @import "layout.less";
 
@@ -75,6 +76,26 @@
   .eh-border-radius( 6px );
   display:inline-block;
   font-family:"微軟正黑體", Arial, sans-serif;
+  .eh-window-header {
+    //display:none;
+    position:relative;
+    background:#aebce8;
+    padding:10px;
+    .eh-border-radius( 6px, "-top-left" );
+    .eh-border-radius( 6px, "-top-right" );
+
+    .eh-window-title {
+      min-height:18px;
+    }
+
+    .close-button {
+      position:absolute;
+      right:10px;
+      top:5px;
+      font-size:26px;
+      cursor:pointer;
+    }
+  }
   .eh-window-content {
     padding:10px;
   }
