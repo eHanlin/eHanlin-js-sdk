@@ -76,27 +76,34 @@
   .eh-border-radius( 6px );
   display:inline-block;
   font-family:"微軟正黑體", Arial, sans-serif;
+  font-size:14px;
   .eh-window-header {
     //display:none;
     position:relative;
-    background:#aebce8;
+    background:#3498db;
     padding:10px;
     .eh-border-radius( 6px, "-top-left" );
     .eh-border-radius( 6px, "-top-right" );
 
     .eh-window-title {
+      text-align:left;
       min-height:18px;
+      color:white;
     }
 
     .close-button {
+      color:white;
       position:absolute;
       right:10px;
       top:5px;
       font-size:26px;
       cursor:pointer;
+      text-decoration:none;
     }
   }
   .eh-window-content {
+    text-align:left;
     padding:10px;
+    color:gray
   }
 }
