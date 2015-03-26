@@ -1,7 +1,8 @@
 
-.eh-border-radius( @value ) {
-  -webkit-border-radius: @value;
-  border-radius: @value;
+.eh-border-radius( @value, @name:'' ) {
+  @dashName:e( @name );
+  -webkit-border@{dashName}-radius: @value;
+  border@{dashName}-radius: @value;
 }
 
 .eh-linear-gradient( @value ) {
