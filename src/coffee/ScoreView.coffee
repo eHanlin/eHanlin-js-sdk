@@ -21,7 +21,7 @@ class ScoreView extends View
     @onLoadData()
     @registerEvent()
     @commentWindowWidth = 500
-    domUtils.css @commentWindowView.el, {position:'absolute', width:"#{@commentWindowWidth}px", display:'none'}
+    domUtils.css @commentWindowView.el, {position:'absolute', width:"#{@commentWindowWidth}px", display:'none',zIndex:1}
     document.addEventListener 'click', => @closeComment()
     
   ###
