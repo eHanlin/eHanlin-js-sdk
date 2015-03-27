@@ -158,6 +158,6 @@ util =
         dataName = name.replace( rName, "" )
         names = dataName.split("")
         names[0] = names[0].toLowerCase()
-        data[names.join('')] = if !isNaN val then Number val else val
+        data[names.join('')] = if !isNaN( val ) and val != '' then Number val else val
     data
 
