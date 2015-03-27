@@ -28,8 +28,7 @@ class ScoreView extends View
    *
   ###
   onLoadData:()->
-    @data_ =
-      status:''
+    @data_ = {}
     dataset = @el.dataset
     {ehAttrUser, ehAttrType, ehAttrTarget} = dataset
     deferred = api.getComment ehAttrUser, ehAttrType, ehAttrTarget, 1
@@ -44,7 +43,7 @@ class ScoreView extends View
 
     deferred.done ( resp )=>
       respData = if resp and resp.result and resp.result.length then resp.result[0] else {}
-      if respData.status then @data_ = status:respData.status else @data_ = {}
+      if !(typeof respData.like is 'undefined') then @data_ = like:respData.like else @data_ = {}
       @syncAttrToData()
       @renderByData()
 
@@ -54,12 +53,12 @@ class ScoreView extends View
   syncAttrToData:-> util.clone @data_, util.getDataByDatasetKey( @el, "ehAttr" )
 
   ###
-   * @param {String} status
+   * @param {String} like
   ###
-  setStatus:( status )->
-    @data_.status = status
+  setLike:( like )->
+    @data_.like = like
     @putToServer()
-    @fireEvent 'statusChange', @data_
+    @fireEvent 'likeChange', @data_
 
   ###
    *
@@ -73,27 +72,27 @@ class ScoreView extends View
   ###
    * @type String
   ###
-  getStatus:()->
-    @data_.status
+  getLike:()->
+    @data_.like
 
-  LIKE:'like',
-  UNLIKE:'unlike',
+  LIKE:1,
+  UNLIKE:0,
 
   ###
    *
   ###
   renderByData:()->
-    status = @data_.status
+    like = @data_.like
     el = @el
     likeEl = el.querySelector('.eh-like')
     unlikeEl = el.querySelector('.eh-unlike')
 
-    switch status
-      when 'like'
+    switch like
+      when 1
         likeEl.classList.add('active')
         unlikeEl.classList.remove('active')
 
-      when 'unlike'
+      when 0
         likeEl.classList.remove('active')
         unlikeEl.classList.add('active')
 
@@ -111,7 +110,7 @@ class ScoreView extends View
   ###
   onLike:( event )->
     #@setStatus( @getStatus() == @LIKE ? '' : @LIKE )
-    @setStatus @LIKE
+    @setLike @LIKE
     @renderByData()
     @showComment event.originalElement
 
@@ -120,7 +119,7 @@ class ScoreView extends View
   ###
   onUnLike:( event )->
     #@setStatus( @getStatus() == @UNLIKE ? '' : @UNLIKE )
-    @setStatus( @UNLIKE )
+    @setLike( @UNLIKE )
     @renderByData()
     @showComment event.originalElement
 
