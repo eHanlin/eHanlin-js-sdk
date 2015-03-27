@@ -26,3 +26,4 @@ api =
     if data._id then delete data._id
     ajax.postJson "#{API_DOMAIN}user/#{user}/type/#{type}/target/#{target}/Comment", data:data
 
+EH.api = api
