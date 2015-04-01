@@ -13,9 +13,17 @@ class Animation
     while cssName = @queue.shift()
       @el.classList.remove cssName
 
-  cssEffect:( name )->
+  cssEffect:( name, cb )->
     @resetCss_()
     @addCss_ name
+
+    if cb
+      el = @el
+      oneCb = ->
+        cb and cb()
+        el.removeEventListener TRANSITION_END, oneCb
+
+      el.addEventListener TRANSITION_END, oneCb
     
     
 
@@ -43,9 +51,7 @@ animationEffect =
   ###
   fadeIn:( el, callback )->
     animation = @createAnimation el
-    animation.cssEffect 'eh-fade-in'
-    el.addEventListener 'transitionend', ->
-      callback and callback()
+    animation.cssEffect 'eh-fade-in', callback
 
   ###
    * @param {HTMLElement} el
@@ -53,7 +59,5 @@ animationEffect =
   ###
   fadeOut:( el, callback )->
     animation = @createAnimation el
-    animation.cssEffect 'eh-fade-out'
-    el.addEventListener 'transitionend', ->
-      callback and callback()
+    animation.cssEffect 'eh-fade-out', callback
 
