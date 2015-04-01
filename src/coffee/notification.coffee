@@ -8,7 +8,7 @@ notification = (()->
     <div class="eh-notification-list"></div>
   """)[0]
 
-  window.addEventListener 'load', -> document.body.appendChild notificationListEl
+  window.addEventListener 'DOMContentLoaded', -> document.body.appendChild notificationListEl
 
   ###
    * @param {String} text

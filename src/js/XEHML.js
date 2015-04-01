@@ -73,6 +73,8 @@ var XEHML = EH.XEHML = {
   }
 };
 
+window.addEventListener( 'DOMContentLoaded', function(){
 
-EH.XEHML.parse();
+  EH.XEHML.parse();
+});
 
