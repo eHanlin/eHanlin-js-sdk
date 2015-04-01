@@ -120,7 +120,8 @@ getScript = ajax.getScript = ( url, cb )->
 
   script = domUtils.createElement 'script'
   script.onload = ->
-    script.remove()
+    parentNode = script.parentNode
+    parentNode.removeChild script
     cb and cb()
   script.type = "text/javascript"
   script.src = url

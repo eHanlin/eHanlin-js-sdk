@@ -145,5 +145,72 @@ domUtils =
   # @param {*} detail
   ###
   fireEvent:( el, name, detail )->
-    event = new CustomEvent name, { 'detail': detail, bubbles:true}
-    el.dispatchEvent event
+    evt = document.createEvent "Event"
+    evt.initEvent name, true, false
+    evt.detail = detail
+    el.dispatchEvent evt
+    #The IE is not support
+    #event = new CustomEvent name, { 'detail': detail, bubbles:true}
+    #el.dispatchEvent event
+
+  ###
+   * @param {HTMLElement} el
+  ###
+  remove:( el )->
+    parentNode = el.parentNode
+    if parentNode then parentNode.removeChild el
+
+  ###
+   * @param {HTMLElement} el
+   * @param {String} key
+   * @type Object
+  ###
+  getDataByDatasetKey:( el, key )->
+    data = {}
+    for name, val of @getDataset( el )
+      rName = new RegExp "^#{key}", "i"
+      if rName.test name
+        dataName = name.replace( rName, "" )
+        names = dataName.split("")
+        names[0] = names[0].toLowerCase()
+        data[names.join('')] = if !isNaN( val ) and val != '' then Number val else val
+    data
+
+  ###
+   * @param {String} key
+   * @type String
+  ###
+  getDatasetAttributeNameByKey_:( key )->
+    filterKey = key.replace /^data-/, ''
+    names = filterKey.split '-'
+    datasetName = ''
+
+    for name, index in names
+      if index is 0
+        datasetName = name
+      else
+        partNames = name.split ''
+        datasetName = datasetName + (partNames.shift().toUpperCase()) + partNames.join('')
+
+    datasetName
+
+  ###
+   * @param {HTMLElement} el
+   * @type Object
+  ###
+  getDataset:( el )->
+
+    if el.dataset
+      dataset = el.dataset
+    else
+      dataset = {}
+
+      for attribute in el.attributes
+        nodeName = attribute.nodeName
+        if /data-/.test nodeName
+          datasetName = @getDatasetAttributeNameByKey_ nodeName
+          dataset[datasetName] = attribute.value
+          
+    dataset
+
+

@@ -40,7 +40,7 @@ class NotificationWindowView extends View
    *
   ###
   close:->
-    animationEffect.fadeOut @el, => @el.remove()
+    animationEffect.fadeOut @el, => domUtils.remove @el
 
   ###
    * @Override

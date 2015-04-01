@@ -30,7 +30,7 @@ var XEHML = EH.XEHML = {
     
     var buildElems = el.querySelectorAll( '[data-eh-action]' );
 
-    if ( el.dataset.ehAction && ! util.data( el, 'view' ) ) {
+    if ( domUtils.getDataset( el ).ehAction && ! util.data( el, 'view' ) ) {
       this.renderElement_( [el] );
     }
 
@@ -50,9 +50,13 @@ var XEHML = EH.XEHML = {
 
       if ( ! util.data( buildEl, 'view' ) ) {
         var children = util.copyArray( buildEl.children );
-        var view = new viewBuilder[buildEl.dataset.ehAction];
+        var view = new viewBuilder[domUtils.getDataset( buildEl ).ehAction];
 
-        util.each( children, function(i, child){ child.remove(); });
+        util.each( children, function(i, child){
+          //The IE 10 is not support remove
+          var parentNode = child.parentNode;
+          if ( parentNode ) parentNode.removeChild( child );
+        });
         util.data( buildEl, 'view', view );
         view.onCreate( buildEl );
 

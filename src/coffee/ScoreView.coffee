@@ -29,7 +29,7 @@ class ScoreView extends View
   ###
   onLoadData:()->
     @data_ = {}
-    dataset = @el.dataset
+    dataset = domUtils.getDataset( @el )
     {ehAttrUser, ehAttrType, ehAttrTarget} = dataset
     deferred = api.getComment ehAttrUser, ehAttrType, ehAttrTarget, 1
 
@@ -50,7 +50,7 @@ class ScoreView extends View
   ###
    *
   ###
-  syncAttrToData:-> util.clone @data_, util.getDataByDatasetKey( @el, "ehAttr" )
+  syncAttrToData:-> util.clone @data_, domUtils.getDataByDatasetKey( @el, "ehAttr" )
 
   ###
    * @param {String} like
@@ -64,7 +64,7 @@ class ScoreView extends View
    *
   ###
   putToServer:->
-    {ehAttrUser, ehAttrType, ehAttrTarget} = @el.dataset
+    {ehAttrUser, ehAttrType, ehAttrTarget} = domUtils.getDataset( @el )
     @syncAttrToData()
     api.putComment ehAttrUser, ehAttrType, ehAttrTarget, @data_
     

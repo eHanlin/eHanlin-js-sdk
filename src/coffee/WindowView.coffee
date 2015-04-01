@@ -17,7 +17,7 @@ class WindowView extends View
     @headerEl = @el.querySelector "div.eh-window-header"
     @titleEl = @headerEl.querySelector "div.eh-window-title"
 
-    if el.dataset.enabledHeader
+    if domUtils.getDataset( el ).enabledHeader
       domUtils.show @headerEl
     else
       domUtils.hide @headerEl

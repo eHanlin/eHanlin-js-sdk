@@ -145,19 +145,3 @@ util =
     if arguments.length is 3 then data[key] = value else data[key]
 
 
-  ###
-   * @param {HTMLElement} el
-   * @param {String} key
-   * @type Object
-  ###
-  getDataByDatasetKey:( el, key )->
-    data = {}
-    for name, val of el.dataset
-      rName = new RegExp "^#{key}", "i"
-      if rName.test name
-        dataName = name.replace( rName, "" )
-        names = dataName.split("")
-        names[0] = names[0].toLowerCase()
-        data[names.join('')] = if !isNaN( val ) and val != '' then Number val else val
-    data
-
