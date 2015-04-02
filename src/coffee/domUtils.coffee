@@ -213,4 +213,15 @@ domUtils =
           
     dataset
 
+  ###
+   * @param {HTMLElement} el
+   * @param {Number} width
+  ###
+  width:( el, width )-> if arguments.length > 1 then el.style.width = "#{width}px" else el.clientWidth
+
+  ###
+   * @param {HTMLElement} el
+   * @param {Number} height
+  ###
+  height:( el, height )-> if arguments.length > 1 then el.style.height = "#{height}px" else el.clientHeight
 
