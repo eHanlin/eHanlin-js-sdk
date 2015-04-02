@@ -41,6 +41,16 @@ class View
     domUtils.height.apply domUtils, params
 
   ###
+   * 
+  ###
+  hide:-> domUtils.hide @el
+
+  ###
+   *
+  ###
+  show:-> domUtils.show @el
+
+  ###
    *
   ###
   destroy:()->
