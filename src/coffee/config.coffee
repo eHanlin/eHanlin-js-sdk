@@ -9,7 +9,7 @@ DATA_KEY = "EH_#{randId()}"
 
 JSONP_KEY = "jsonp_#{randId()}"
 
-API_DOMAIN = if CONFIG.API_DOMAIN then CONFIG.API_DOMAIN else "http://test.ehanlin.com.tw:8989/"
+API_DOMAIN = if CONFIG.API_DOMAIN then CONFIG.API_DOMAIN else "test.ehanlin.com.tw:8989"
 
 TRANSITION_END = (()->
   div = document.createElement('div')

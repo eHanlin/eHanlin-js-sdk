@@ -12,7 +12,7 @@ api =
   ###
   getComment:( user, type, target, limit = 10 )->
 
-    ajax.jsonp "#{API_DOMAIN}user/#{user}/type/#{type}/target/#{target}/Comment", limit:limit
+    ajax.jsonp "//#{API_DOMAIN}/user/#{user}/type/#{type}/target/#{target}/Comment", limit:limit
 
   ###
    * @param {String} user
@@ -24,6 +24,6 @@ api =
   putComment:( user, type, target, data = {} )->
 
     if data._id then delete data._id
-    ajax.postJson "#{API_DOMAIN}user/#{user}/type/#{type}/target/#{target}/Comment", data:data
+    ajax.postJson "//#{API_DOMAIN}/user/#{user}/type/#{type}/target/#{target}/Comment", data:data
 
 EH.api = api

@@ -26,7 +26,7 @@ init config
 ```js
 var EH = {
   CONFIG:{
-    API_DOMAIN:"http://yourdomain:8989/"
+    API_DOMAIN:"yourdomain:8989"
   }
 };
 ```
