@@ -55,7 +55,7 @@ gulp.task('build', ["less", "coffee"], function(){
       'src/js/pathBuilder.js',
       'src/js/EventBinder.js',
       'src/js/Model.js',
-      'src/js/View.js',
+      tmpFolder + '/coffee/View.js',
       tmpFolder + '/coffee/WindowView.js',
       tmpFolder + '/coffee/CommentView.js',
       tmpFolder + '/coffee/CommentWindowView.js',
