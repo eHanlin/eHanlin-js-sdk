@@ -2,6 +2,12 @@
 eHanlinSDK
 ==============================
 
+## Install
+
+```bash
+bower install ehanlin-js-sdk
+```
+
 ## Install node modules
 
 ```bash
