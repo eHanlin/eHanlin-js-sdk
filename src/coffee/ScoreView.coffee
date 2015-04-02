@@ -20,8 +20,8 @@ class ScoreView extends View
     @commentView.setTextAreaPlaceHolder '請留下您對此影片的意見或心得想法，以協助我們製作出更符合您學習需求的教學影片'
     @onLoadData()
     @registerEvent()
-    @commentWindowWidth = 500
-    domUtils.css @commentWindowView.el, {position:'absolute', width:"#{@commentWindowWidth}px", display:'none',zIndex:1}
+    @commentWindowMaxWidth = 500
+    domUtils.css @commentWindowView.el, {position:'absolute', width:"#{@commentWindowMaxWidth}px", display:'none',zIndex:1}
     document.addEventListener 'click', => @closeComment()
     
   ###
@@ -142,15 +142,39 @@ class ScoreView extends View
   ###
    *
   ###
-  showComment:( el )->
-    height = el.clientHeight
+  autoCommentResize:->
+    body = document.body
+    browserWidth = body.clientWidth
+    clientWidth = if browserWidth < @commentWindowMaxWidth then browserWidth else @commentWindowMaxWidth
+
+    @commentWindowView.width clientWidth
+    clientWidth
+
+  ###
+   * @param {HTMLElement} el
+  ###
+  autoCommentPosition:( el )->
+    commentWindowWidth = @autoCommentResize()
+    height = this.height()
     elOffset = domUtils.offset @el
-    left = document.body.clientWidth - elOffset.left - @commentWindowWidth
+    
+    left = document.body.clientWidth - elOffset.left - commentWindowWidth
+
     offset =
-      left:if left > 0 then el.offsetLeft + 5 else el.offsetLeft + el.clientWidth - @commentWindowWidth - 5
+      left:if left > 0 then el.offsetLeft + 5 else el.offsetLeft + el.clientWidth - commentWindowWidth - 5
       top:el.offsetTop + 10
 
-    domUtils.css @commentWindowView.el, {display:'block', left:"#{offset.left}px" , top:"#{offset.top + height}px"}
+    if commentWindowWidth < @commentWindowMaxWidth
+      offset.left = 0
+
+    domUtils.css @commentWindowView.el, {left:"#{offset.left}px" , top:"#{offset.top + height}px"}
+
+  ###
+   * @param {HTMLElement} el
+  ###
+  showComment:( el )->
+    @autoCommentPosition el
+    domUtils.css @commentWindowView.el , {display:'block'}
 
   ###
   *
