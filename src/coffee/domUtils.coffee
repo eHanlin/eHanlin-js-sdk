@@ -85,7 +85,10 @@ domUtils =
    * @param {HTMLElement} el
   ###
   show:( el )->
-    @css el, {'display': (util.data( el, 'originalDisplay' ) or 'block')}
+
+    display = @css el, 'display'
+
+    if /none/i.test display then @css el, {'display': (util.data( el, 'originalDisplay' ) or 'block')}
 
   ###
   # @param {HTMLElement} el
