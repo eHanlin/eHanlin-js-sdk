@@ -51,6 +51,7 @@ animationEffect =
   ###
   fadeIn:( el, callback )->
     animation = @createAnimation el
+    domUtils.show el
     animation.cssEffect 'eh-fade-in', callback
 
   ###
@@ -59,5 +60,7 @@ animationEffect =
   ###
   fadeOut:( el, callback )->
     animation = @createAnimation el
-    animation.cssEffect 'eh-fade-out', callback
+    animation.cssEffect 'eh-fade-out', ->
+      domUtils.hide el
+      callback and callback()
 
