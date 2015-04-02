@@ -174,12 +174,12 @@ class ScoreView extends View
   ###
   showComment:( el )->
     @autoCommentPosition el
-    domUtils.css @commentWindowView.el , {display:'block'}
+    @commentWindowView.show()
 
   ###
   *
   ###
-  closeComment:-> domUtils.css @commentWindowView.el, {display:'none'}
+  closeComment:-> @commentWindowView.hide()
 
   ###
   #
