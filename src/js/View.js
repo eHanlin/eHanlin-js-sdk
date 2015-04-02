@@ -28,6 +28,24 @@ util.clone( View.prototype , {
   },
 
   /**
+   * @param {Number} width
+   */
+  width:function( width ){
+    var params = util.copyArray(arguments);
+    params.unshift( this.el );
+    return domUtils.width.apply( domUtils, params );
+  },
+
+  /**
+   * @param {Number} height
+   */
+  height:function( height ){
+    var params = util.copyArray(arguments);
+    params.unshift( this.el );
+    return domUtils.height.apply( domUtils, params );
+  },
+
+  /**
    *
    */
   destroy:function(){
