@@ -145,7 +145,7 @@ class ScoreView extends View
   autoCommentResize:->
     body = document.body
     browserWidth = body.clientWidth
-    clientWidth = if browserWidth < @commentWindowMaxWidth then browserWidth else @commentWindowMaxWidth
+    clientWidth = if body.scrollWidth < @commentWindowMaxWidth then browserWidth else @commentWindowMaxWidth
 
     @commentWindowView.width clientWidth
     clientWidth
@@ -158,14 +158,16 @@ class ScoreView extends View
     height = this.height()
     elOffset = domUtils.offset @el
     
-    left = document.body.clientWidth - elOffset.left - commentWindowWidth
+    bodyWidth = document.body.clientWidth
+    left = bodyWidth - elOffset.left - commentWindowWidth
 
     offset =
       left:if left > 0 then el.offsetLeft + 5 else el.offsetLeft + el.clientWidth - commentWindowWidth - 5
       top:el.offsetTop + 10
 
+    
     if commentWindowWidth < @commentWindowMaxWidth
-      offset.left = 0
+      offset.left = ( window.innerWidth -  bodyWidth ) / 2 - domUtils.offset( @el ).left
 
     domUtils.css @commentWindowView.el, {left:"#{offset.left}px" , top:"#{offset.top + height}px"}
 
