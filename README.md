@@ -2,6 +2,8 @@
 eHanlinSDK
 ==============================
 
+![test](doc/images/score-plugin.png)
+
 ## Install
 
 ```bash
