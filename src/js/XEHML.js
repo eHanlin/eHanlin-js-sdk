@@ -41,6 +41,19 @@ var XEHML = EH.XEHML = {
   },
 
   /**
+   * @param {HTMLElement} dom
+   */
+  update:function( dom ){
+
+    var view = util.data( el, 'view' );
+
+    if ( view && view.onUpdate ) {
+
+      view.onUpdate();
+    }
+  },
+
+  /**
    * @private
    * @param {HTMLElement[]} buildElems
    */

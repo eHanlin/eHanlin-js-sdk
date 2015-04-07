@@ -10,7 +10,8 @@ EH.XEHML
 <div class="eh-score"
   data-eh-action="score"
   data-eh-comment-select='[{"val":"","text":"請選擇段落"},{"val":"全部","text":"全部"}]'
-  data-eh-attr-user="peter"
+  data-eh-text-placeholder="請留下您使用心得..."
+  data-eh-attr-user="tom"
   data-eh-attr-type="video"
   data-eh-attr-target="av-001"
   data-eh-attr-teacher="dog">
