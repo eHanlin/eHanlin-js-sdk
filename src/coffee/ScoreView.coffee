@@ -17,12 +17,13 @@ class ScoreView extends View
 
     @commentWindowView = @findViewByName 'commentWindow'
     @commentView = @findViewByName 'comment'
-    @commentView.setTextAreaPlaceHolder '請留下您對此影片的意見或心得想法，以協助我們製作出更符合您學習需求的教學影片'
     @onLoadData()
     @registerEvent()
     @commentWindowMaxWidth = 500
     domUtils.css @commentWindowView.el, {position:'absolute', width:"#{@commentWindowMaxWidth}px", display:'none',zIndex:1}
     document.addEventListener 'click', => @closeComment()
+
+  TEXT_PLACEHOLDER: '請留下您對此影片的意見或心得想法，以協助我們製作出更符合您學習需求的教學影片'
     
   ###
    *
@@ -33,6 +34,19 @@ class ScoreView extends View
     {ehAttrUser, ehAttrType, ehAttrTarget} = dataset
     deferred = api.getComment ehAttrUser, ehAttrType, ehAttrTarget, 1
 
+    @onUpdate()
+
+    deferred.done ( resp )=>
+      respData = if resp and resp.result and resp.result.length then resp.result[0] else {}
+      if !(typeof respData.like is 'undefined') then @data_ = like:respData.like else @data_ = {}
+      @syncAttrToData()
+      @renderByData()
+
+  ###
+   *
+  ###
+  onUpdate:->
+    dataset = domUtils.getDataset( @el )
     selects = JSON.parse( dataset.ehCommentSelect or "[]" )
 
     if selects.length
@@ -41,11 +55,9 @@ class ScoreView extends View
     else
       @commentView.hideSelector()
 
-    deferred.done ( resp )=>
-      respData = if resp and resp.result and resp.result.length then resp.result[0] else {}
-      if !(typeof respData.like is 'undefined') then @data_ = like:respData.like else @data_ = {}
-      @syncAttrToData()
-      @renderByData()
+    textPlaceholder = if dataset.ehTextPlaceholder then dataset.ehTextPlaceholder else @TEXT_PLACEHOLDER
+    @commentView.setTextAreaPlaceHolder textPlaceholder
+
 
   ###
    *
