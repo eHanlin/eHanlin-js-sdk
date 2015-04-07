@@ -78,8 +78,10 @@ domUtils =
   ###
   hide:( el )->
     display = @css el, 'display'
-    util.data el, 'originalDisplay', display
-    @css el, {'display': 'none'}
+
+    if !( /none/i.test display )
+      util.data el, 'originalDisplay', display
+      @css el, {'display': 'none'}
 
   ###
    * @param {HTMLElement} el
@@ -87,8 +89,10 @@ domUtils =
   show:( el )->
 
     display = @css el, 'display'
+    originalDisplay = util.data( el, 'originalDisplay' )
+    originalDisplay = if originalDisplay and (! /none/i.test(originalDisplay)) then originalDisplay else 'block'
 
-    if /none/i.test display then @css el, {'display': (util.data( el, 'originalDisplay' ) or 'block')}
+    if /none/i.test display then @css el, {'display': originalDisplay}
 
   ###
   # @param {HTMLElement} el
