@@ -5,6 +5,8 @@ pack = require('./package.json'),
 port = 9191,
 tmpFolder = '.tmp';
 
+pack.dist = "dist";
+
 var buildConactScript = function( scripts, output ){
   return gulp.src(scripts)
              .pipe(plugins.concat(output))
